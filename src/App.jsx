@@ -1,14 +1,16 @@
 import { GlobalProvider } from "./contexts/globalContext"
-import Main from "./components/Main"
+import { BrowserRouter, Routes, Route } from "react-router-dom"
+import Home from "./pages/Home"
+
 function App() {
-
   return (
-    <>
-      <GlobalProvider>
-        <Main />
-      </GlobalProvider>
-
-    </>
+    <GlobalProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home />} />
+        </Routes>
+      </BrowserRouter>
+    </GlobalProvider>
   )
 }
 

@@ -6,9 +6,10 @@ const api_key = import.meta.env.VITE_MOVIE_DB_API_KEY;
 function GlobalProvider({ children }) {
     const [searchText, setSearchText] = useState("");
     const [searchResults, setSearchResults] = useState([]);
+    const [language, setLanguage] = useState("en-EN"); // Inizializza con stringa vuota
 
     const handleSearch = () => {
-        fetch(`https://api.themoviedb.org/3/search/movie?api_key=${api_key}&query=${searchText}`)
+        fetch(`https://api.themoviedb.org/3/search/movie?api_key=${api_key}&query=${searchText}&language=${language}`)
             .then(response => response.json())
             .then(data => {
                 setSearchResults(data.results);
@@ -19,7 +20,14 @@ function GlobalProvider({ children }) {
     };
 
     return (
-        <GlobalContext.Provider value={{ searchText, setSearchText, searchResults, handleSearch }}>
+        <GlobalContext.Provider value={{
+            searchText,
+            setSearchText,
+            searchResults,
+            handleSearch,
+            language,
+            setLanguage
+        }}>
             {children}
         </GlobalContext.Provider>
     )

@@ -1,7 +1,8 @@
 import { useGlobal } from "../contexts/globalContext"
+import ReactCountryFlag from "react-country-flag"
 
-export default function Main() {
-    const { searchText, setSearchText, handleSearch, searchResults } = useGlobal()
+export default function Home() {
+    const { searchText, setSearchText, handleSearch, searchResults, setLanguage } = useGlobal()
 
     return (
         <>
@@ -24,18 +25,22 @@ export default function Main() {
             <div className="search-results">
                 {searchResults?.length > 0 ? (
                     <div className="card">
-                        {searchResults.map((movie) => (
-                            <ul key={movie.id}>
-                                <li>{movie.title}</li>
-                                <li>{movie.original_language}</li>
-                                <li>{movie.vote_count}</li>
-                            </ul>
-                        ))}
+
+                        {searchResults.map((movie) => {
+                            const languageCode = movie.original_language === 'en' ? 'GB' : movie.original_language;
+                            return (
+                                <ul key={movie.id}>
+                                    <li>{movie.title}</li>
+                                    <li><ReactCountryFlag countryCode={languageCode} svg /></li>
+                                    <li>{(movie.vote_average).toFixed(0)}</li>
+                                </ul>
+                            );
+                        })}
                     </div>
                 ) : (
                     <p>No results found</p>
                 )}
-            </div>
+            </div >
         </>
     )
 }
