@@ -38,12 +38,29 @@ export default function Home() {
                         {searchResults.map((item) => {
                             const languageCode = item.original_language === 'en' ? 'GB' : item.original_language;
                             const uniqueKey = `${item.type}-${item.id}`;
+                            const stars = ((item.vote_average).toFixed(0) / 2)
+                            function getStars() {
+                                return (
+                                    Array.from({ length: stars }, (_, i) => (
+                                        <span key={i}>⭐</span>
+                                    ))
+
+
+                                );
+                            }
+
                             return (
                                 <ul key={uniqueKey}>
                                     <li>{item.type === 'movie' ? item.title : item.name}</li>
                                     <li>{item.type === 'movie' ? item.original_title : item.original_name}</li>
                                     <li><ReactCountryFlag countryCode={languageCode} title={item.original_language} svg /></li>
-                                    <li>{(item.vote_average).toFixed(0)}</li>
+                                    <li>
+                                        {getStars()}
+
+                                    </li>
+                                    <li>{item.overview}</li>
+                                    <li><img src={`http://image.tmdb.org/t/p/w500/${item.poster_path
+                                        }`} alt="" /></li>
                                 </ul>
                             );
                         })}
