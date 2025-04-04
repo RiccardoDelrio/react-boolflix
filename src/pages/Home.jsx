@@ -2,7 +2,7 @@ import { useGlobal } from "../contexts/globalContext"
 import ReactCountryFlag from "react-country-flag"
 
 export default function Home() {
-    const { searchText, setSearchText, handleSearch, searchResults, language, setLanguage } = useGlobal()
+    const { searchText, setSearchText, handleSearch, searchResults, language, setLanguage, } = useGlobal()
 
     return (
         <>
@@ -10,6 +10,7 @@ export default function Home() {
                 <div className="nav">
                     <h1>Boolflix</h1>
                 </div>
+
                 <form className="d-flex" role="search" onSubmit={(e) => {
                     e.preventDefault();
                     handleSearch()
@@ -24,7 +25,7 @@ export default function Home() {
                 <div className="langChoice">
                     <label htmlFor="languageSelect">Select language:</label>
                     <select id="languageSelect" value={language} onChange={(e) => setLanguage(e.target.value)}>
-                        <option value="en">Eng</option>
+                        <option value="en">English</option>
                         <option value="it">Italian</option>
                         <option value="fr">French</option>
                         <option value="es">Spanish</option>
@@ -34,14 +35,15 @@ export default function Home() {
             <div className="search-results">
                 {searchResults?.length > 0 ? (
                     <div className="card">
-
-                        {searchResults.map((movie) => {
-                            const languageCode = movie.original_language === 'en' ? 'GB' : movie.original_language;
+                        {searchResults.map((item) => {
+                            const languageCode = item.original_language === 'en' ? 'GB' : item.original_language;
+                            const uniqueKey = `${item.type}-${item.id}`;
                             return (
-                                <ul key={movie.id}>
-                                    <li>{movie.overview}</li>
-                                    <li><ReactCountryFlag countryCode={languageCode} title={movie.original_language} svg /></li>
-                                    <li>{(movie.vote_average).toFixed(0)}</li>
+                                <ul key={uniqueKey}>
+                                    <li>{item.type === 'movie' ? item.title : item.name}</li>
+                                    <li>{item.overview}</li>
+                                    <li><ReactCountryFlag countryCode={languageCode} title={item.original_language} svg /></li>
+                                    <li>{(item.vote_average).toFixed(0)}</li>
                                 </ul>
                             );
                         })}
@@ -49,7 +51,7 @@ export default function Home() {
                 ) : (
                     <p>No results found</p>
                 )}
-            </div >
+            </div>
         </>
     )
 }
