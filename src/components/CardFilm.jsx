@@ -14,6 +14,7 @@ export default function Card({ movie, stars }) {
                         {truncateText(movie.overview, 200)}
                     </p>
                 </div>
+                <img className="img_card" src={`http://image.tmdb.org/t/p/w500/${movie.poster_path} alt=""`} />
             </div>
         </div>
     );

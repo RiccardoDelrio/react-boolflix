@@ -7,7 +7,7 @@ function GlobalProvider({ children }) {
     const [searchText, setSearchText] = useState("");
     const [movies, setMovies] = useState([]);
     const [tvShows, setTvShows] = useState([]);
-    const [language, setLanguage] = useState("en-EN");
+    const [language, setLanguage] = useState("en");
 
     const handleSearch = () => {
         // Fetch movies
@@ -31,6 +31,8 @@ function GlobalProvider({ children }) {
             });
     };
 
+
+
     const allResults = [...movies, ...tvShows];
 
     return (
@@ -40,7 +42,7 @@ function GlobalProvider({ children }) {
             searchResults: allResults,
             handleSearch,
             language,
-            setLanguage
+            setLanguage,
         }}>
             {children}
         </GlobalContext.Provider>
