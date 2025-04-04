@@ -1,4 +1,4 @@
-
+import { GlobalContext } from "./contexts/globalContext"
 function App() {
 
   return (
