@@ -13,22 +13,23 @@ export default function Card({ movie, stars }) {
     };
 
     return (
-        <div className="col mb-4 "
-            onClick={toggleImage}>
-            <div className="card card_film bg-black text-white">
-                <div className="card-body">
+        <div className="col mb-4">
+            <div className={`card card_film bg-black text-white ${!isImageVisible ? 'flipped' : ''}`}
+                onClick={toggleImage}>
+                <div className="card-front">
+                    <img
+                        className="img_card"
+                        src={`http://image.tmdb.org/t/p/w500/${movie.poster_path}`}
+                        alt={movie.title || movie.name}
+                    />
+                </div>
+                <div className="card-back">
                     <h5 className="card-title">Titolo: {movie.type === "movie" ? movie.title : movie.name}</h5>
-                    <h6 className="card-subtitle mb-2 ">Vote:{stars} </h6>
+                    <h6 className="card-subtitle mb-2">Vote: {stars}</h6>
                     <p className="card-text">
                         {truncateText(movie.overview, 200)}
                     </p>
                 </div>
-                <img
-                    className={`img_card ${isImageVisible ? '' : 'd-none'}`}
-
-                    src={`http://image.tmdb.org/t/p/w500/${movie.poster_path}`}
-                    alt={movie.title || movie.name}
-                />
             </div>
         </div>
     );
