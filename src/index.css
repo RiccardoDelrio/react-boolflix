@@ -1,5 +1,27 @@
 @import 'bootstrap';
 
+main {
+    background-color: #141414;
+    padding-top: 30px;
+    min-height: calc(100vh -56px);
+    height: 100%;
+}
+
+.col {
+    padding: 1px;
+}
+
 .card_film {
-    min-height: 350px;
+    height: 350px;
+    border: 1px solid rgba(255, 255, 255, 0.267);
+
+}
+
+header {
+    background-color: black;
+
+    .nav_title {
+        color: red;
+        font-size: 30px
+    }
 }

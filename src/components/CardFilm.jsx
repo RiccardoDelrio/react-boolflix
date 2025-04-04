@@ -5,10 +5,10 @@ export default function Card({ movie, stars }) {
     };
 
     return (
-        <div className="col mb-4">
+        <div className="col mb-4 ">
             <div className="card card_film bg-black text-white">
                 <div className="card-body">
-                    <h5 className="card-title">Titolo: {movie.title}</h5>
+                    <h5 className="card-title">Titolo: {movie.type === "movie" ? movie.title : movie.name}</h5>
                     <h6 className="card-subtitle mb-2 ">Vote:{stars} </h6>
                     <p className="card-text">
                         {truncateText(movie.overview, 200)}
