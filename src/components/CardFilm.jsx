@@ -1,11 +1,20 @@
+import { useState } from 'react';
+
 export default function Card({ movie, stars }) {
+    const [isImageVisible, setIsImageVisible] = useState(true);
+
     const truncateText = (text, maxLength) => {
         if (!text) return "No description available.";
         return text.length > maxLength ? text.slice(0, maxLength) + '...' : text;
     };
 
+    const toggleImage = () => {
+        setIsImageVisible(!isImageVisible);
+    };
+
     return (
-        <div className="col mb-4 ">
+        <div className="col mb-4 "
+            onClick={toggleImage}>
             <div className="card card_film bg-black text-white">
                 <div className="card-body">
                     <h5 className="card-title">Titolo: {movie.type === "movie" ? movie.title : movie.name}</h5>
@@ -14,7 +23,12 @@ export default function Card({ movie, stars }) {
                         {truncateText(movie.overview, 200)}
                     </p>
                 </div>
-                <img className="img_card" src={`http://image.tmdb.org/t/p/w500/${movie.poster_path} alt=""`} />
+                <img
+                    className={`img_card ${isImageVisible ? '' : 'd-none'}`}
+
+                    src={`http://image.tmdb.org/t/p/w500/${movie.poster_path}`}
+                    alt={movie.title || movie.name}
+                />
             </div>
         </div>
     );
