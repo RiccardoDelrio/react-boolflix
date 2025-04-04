@@ -1,8 +1,12 @@
-import { GlobalContext } from "./contexts/globalContext"
+import { GlobalProvider } from "./contexts/globalContext"
+import Main from "./components/Main"
 function App() {
 
   return (
     <>
+      <GlobalProvider>
+        <Main />
+      </GlobalProvider>
 
     </>
   )
