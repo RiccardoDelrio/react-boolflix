@@ -44,8 +44,6 @@ export default function Home() {
                                     Array.from({ length: stars }, (_, i) => (
                                         <span key={i}>⭐</span>
                                     ))
-
-
                                 );
                             }
 
