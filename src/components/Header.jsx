@@ -1,4 +1,7 @@
+import { useGlobal } from "../contexts/globalContext"
+
 export default function Header() {
+    const { searchText, setSearchText, handleSearch, language, setLanguage } = useGlobal()
     return (
         <>
             <nav className="navbar navbar-expand-lg bg-body-tertiary">
@@ -19,8 +22,25 @@ export default function Header() {
                                 <a className="nav-link active" aria-current="page" href="#">Telefilm</a>
                             </li>
                         </ul>
-                        <form className="d-flex" role="search">
-                            <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+                        <form className="d-flex" role="search" onSubmit={(e) => {
+                            e.preventDefault();
+                            handleSearch()
+                        }}>
+
+                            <div className="langChoice">
+
+                                <select id="languageSelect" value={language} onChange={(e) => setLanguage(e.target.value)}>
+                                    <option value="en">English</option>
+                                    <option value="it">Italian</option>
+                                    <option value="fr">French</option>
+                                    <option value="es">Spanish</option>
+                                </select>
+                            </div>
+                            <input className="form-control me-2"
+                                type="search" placeholder="Search"
+                                aria-label="Search"
+                                value={searchText}
+                                onChange={(e) => setSearchText(e.target.value)} />
                             <button className="btn btn-outline-success" type="submit">Search</button>
                         </form>
                     </div>
