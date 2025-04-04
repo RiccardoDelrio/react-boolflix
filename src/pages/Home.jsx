@@ -41,7 +41,7 @@ export default function Home() {
                             return (
                                 <ul key={uniqueKey}>
                                     <li>{item.type === 'movie' ? item.title : item.name}</li>
-                                    <li>{item.overview}</li>
+                                    <li>{item.type === 'movie' ? item.original_title : item.original_name}</li>
                                     <li><ReactCountryFlag countryCode={languageCode} title={item.original_language} svg /></li>
                                     <li>{(item.vote_average).toFixed(0)}</li>
                                 </ul>
