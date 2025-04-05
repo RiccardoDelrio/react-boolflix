@@ -68,6 +68,15 @@ main {
     background: linear-gradient(180deg, rgba(0, 0, 0, 1) 0%, rgba(20, 20, 20, 1) 100%);
     padding-top: 30px;
     min-height: calc(100vh - 56px);
+
+
+
+    /* gestione dello slide laterale  */
+    .row {
+        scroll-behavior: smooth;
+        flex-wrap: nowrap;
+        overflow: hidden;
+    }
 }
 
 .movies-container {

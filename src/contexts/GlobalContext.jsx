@@ -23,7 +23,7 @@ function GlobalProvider({ children }) {
             .catch(error => {
                 console.error('Error fetching top ten movies:', error);
             });
-    }, [language]); // Esegui nuovamente la chiamata se cambia la lingua
+    },); // Esegui nuovamente la chiamata se cambia la lingua
 
     const handleSearch = () => {
         // Fetch movies
