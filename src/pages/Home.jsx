@@ -8,7 +8,25 @@ export default function Home() {
     return (
         <>
             <main>
-                <div className="m-5 p-4">
+                <div className="m-5 px-4">
+                    <div class=" mb-4 bg-light rounded-3">
+                        <div class="container-fluid bg-black rounded">
+                            <div style={{ width: '100%', height: '400px' }}>
+                                <iframe
+                                    width="100%"
+                                    height="100%"
+                                    src="https://www.youtube.com/embed/Ijqzh2hQOkc"
+                                    title="YouTube Video Player"
+
+                                    allow="accelerometer; autoplay; clipboard-write; gyroscope;"
+                                    allowFullScreen
+                                ></iframe>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <h2 className="mb-5">Top Movies and TV Series of the Week</h2>
                     <div className="search-results">
                         <button className='arrow_left btn' onClick={() => slide(-1)}> <i className="fa fa-arrow-left" aria-hidden="true"></i>
                         </button>

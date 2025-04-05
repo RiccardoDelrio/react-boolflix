@@ -1,5 +1,14 @@
 @import 'bootstrap';
 
+html,
+body {
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 1) 0%, rgba(20, 20, 20, 1) 100%);
+    overflow-x: hidden;
+    /* Prevent horizontal scrolling */
+}
+
 header {
     background-color: black;
 
@@ -64,10 +73,8 @@ header {
 }
 
 main {
-    background: rgb(0, 0, 0);
     background: linear-gradient(180deg, rgba(0, 0, 0, 1) 0%, rgba(20, 20, 20, 1) 100%);
     padding-top: 30px;
-    min-height: calc(100vh - 56px);
 
     .search-results {
         position: relative;

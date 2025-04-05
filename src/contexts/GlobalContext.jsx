@@ -11,6 +11,7 @@ function GlobalProvider({ children }) {
     const [language, setLanguage] = useState("en");
     const [topTen, setTopTen] = useState([]);
 
+
     // Popola i dati di "Top Ten" al caricamento della pagina
     useEffect(() => {
         fetch(`https://api.themoviedb.org/3/trending/movie/week?api_key=${api_key}&language=${language}`)
@@ -25,6 +26,7 @@ function GlobalProvider({ children }) {
                 console.error('Error fetching top ten movies:', error);
             });
     }, [language]); // Esegui ancora la chimata se cambia la lingua
+
 
     const handleSearch = () => {
         // Fetch movies
