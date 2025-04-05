@@ -1,7 +1,11 @@
 import { useGlobal } from "../contexts/globalContext"
+import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function Header() {
-    const { searchText, setSearchText, handleSearch, language, setLanguage } = useGlobal()
+    const { searchText, setSearchText, handleSearch, language, setLanguage, } = useGlobal()
+    const navigate = useNavigate();
+
     return (
         <>
             <header>
@@ -15,7 +19,7 @@ export default function Header() {
                         <div className="collapse navbar-collapse " id="navbarSupportedContent">
                             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                                 <li className="nav-item">
-                                    <a className="nav-link active text-white" aria-current="page" href="#">Home</a>
+                                    <Link to="/" className="nav-link active text-white" aria-current="page" href="#" >Home</Link>
                                 </li>
                                 <li className="nav-item">
                                     <a className="nav-link active text-white" aria-current="page" href="#">Fim</a>
@@ -26,7 +30,8 @@ export default function Header() {
                             </ul>
                             <form className="d-flex" role="search" onSubmit={(e) => {
                                 e.preventDefault();
-                                handleSearch()
+                                handleSearch();
+                                navigate("/search");
                             }}>
 
 

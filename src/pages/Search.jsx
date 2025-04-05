@@ -2,7 +2,7 @@ import { useGlobal } from "../contexts/globalContext"
 import Card from "../components/CardFilm"
 
 export default function Home() {
-    const { searchResults, languageCode, topTen } = useGlobal()
+    const { searchResults, languageCode, } = useGlobal()
 
 
     return (
@@ -11,7 +11,7 @@ export default function Home() {
                 <div className="container p-4">
                     <div className="search-results">
                         <div className="row row-cols-1 row-cols-sm-2 row-cols-lg-4">
-                            {topTen.map((item) => {
+                            {searchResults.map((item) => {
                                 const stars = ((item.vote_average || 0) / 2);
                                 function getStars() {
                                     return (

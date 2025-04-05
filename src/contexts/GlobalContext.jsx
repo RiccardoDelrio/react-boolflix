@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useEffect } from "react"; // Aggiungi useEffect
 
 const GlobalContext = createContext();
 const api_key = import.meta.env.VITE_MOVIE_DB_API_KEY;
@@ -8,6 +8,22 @@ function GlobalProvider({ children }) {
     const [movies, setMovies] = useState([]);
     const [tvShows, setTvShows] = useState([]);
     const [language, setLanguage] = useState("en");
+    const [topTen, setTopTen] = useState([]);
+
+    // Popola i dati di "Top Ten" al caricamento della pagina
+    useEffect(() => {
+        fetch(`https://api.themoviedb.org/3/trending/movie/week?api_key=${api_key}&language=${language}`)
+            .then(response => response.json())
+            .then(data => {
+                setTopTen(data.results.slice(0, 8).map(movie => ({
+                    ...movie,
+                    type: 'movie', // Aggiungi il campo "type"
+                })));
+            })
+            .catch(error => {
+                console.error('Error fetching top ten movies:', error);
+            });
+    }, [language]); // Esegui nuovamente la chiamata se cambia la lingua
 
     const handleSearch = () => {
         // Fetch movies
@@ -31,8 +47,6 @@ function GlobalProvider({ children }) {
             });
     };
 
-
-
     const allResults = [...movies, ...tvShows];
 
     return (
@@ -43,14 +57,16 @@ function GlobalProvider({ children }) {
             handleSearch,
             language,
             setLanguage,
+            topTen,
+            setTopTen
         }}>
             {children}
         </GlobalContext.Provider>
-    )
+    );
 }
 
 function useGlobal() {
     return useContext(GlobalContext);
 }
 
-export { GlobalProvider, useGlobal }
+export { GlobalProvider, useGlobal };
