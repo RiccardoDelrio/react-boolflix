@@ -1,16 +1,19 @@
 import { useGlobal } from "../contexts/globalContext"
 import Card from "../components/CardFilm"
 
-export default function Home() {
-    const { searchResults, languageCode, } = useGlobal()
-
+export default function Search() {
+    const { searchResults, languageCode, rowRef, slide } = useGlobal()
 
     return (
         <>
             <main>
-                <div className="container p-4">
+                <div className="m-5 p-4">
                     <div className="search-results">
-                        <div className="row row-cols-1 row-cols-sm-2 row-cols-lg-4">
+                        <button className='arrow_left btn' onClick={() => slide(-1)}> <i className="fa fa-arrow-left" aria-hidden="true"></i>
+                        </button>
+                        <button className='arrow_right btn' onClick={() => slide(1)}> <i className="fa fa-arrow-right" aria-hidden="true"></i>
+                        </button>
+                        <div className="row" ref={rowRef}>
                             {searchResults.map((item) => {
                                 const stars = ((item.vote_average || 0) / 2);
                                 function getStars() {
@@ -31,7 +34,6 @@ export default function Home() {
                                 );
                             })}
                         </div>
-
                     </div>
                 </div>
             </main>

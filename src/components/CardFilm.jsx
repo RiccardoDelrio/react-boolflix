@@ -13,7 +13,7 @@ export default function Card({ movie, stars }) {
     };
 
     return (
-        <div className="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
+        <div className="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 mb-4">
             <div className={`card_film ${!isImageVisible ? 'flipped' : ''}`}
                 onClick={toggleImage}>
                 <div className="card-front">

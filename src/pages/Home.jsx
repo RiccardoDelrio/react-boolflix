@@ -1,29 +1,21 @@
-import React, { useRef } from 'react';
 import { useGlobal } from "../contexts/globalContext"
+import React from 'react';
 import Card from "../components/CardFilm"
 
 export default function Home() {
-    const { languageCode, topTen } = useGlobal()
-    const rowRef = useRef(null);
-
-    // SLIDE LATERALE DELLA ROW
-    const slide = (direction) => {
-        const cardWidth = rowRef.current.firstChild.offsetWidth + 0; // Dimensione card + margine
-        rowRef.current.scrollBy({
-            left: direction * cardWidth,
-            behavior: 'smooth',
-        });
-    };
+    const { languageCode, topTen, rowRef, slide } = useGlobal()
 
     return (
         <>
             <main>
-                <div className="container p-4">
+                <div className="m-5 p-4">
                     <div className="search-results">
-                        <button onClick={() => slide(-2)}> Sinistra</button>
-                        <button onClick={() => slide(2)}> Destra</button>
+                        <button className='arrow_left btn' onClick={() => slide(-1)}> <i className="fa fa-arrow-left" aria-hidden="true"></i>
+                        </button>
+                        <button className='arrow_right btn' onClick={() => slide(1)}> <i className="fa fa-arrow-right" aria-hidden="true"></i>
+                        </button>
 
-                        <div className="row  " ref={rowRef}>
+                        <div className="row" ref={rowRef}>
                             {topTen.map((item) => {
                                 const stars = ((item.vote_average || 0) / 2);
                                 function getStars() {
@@ -44,7 +36,6 @@ export default function Home() {
                                 );
                             })}
                         </div>
-
                     </div>
                 </div>
             </main>

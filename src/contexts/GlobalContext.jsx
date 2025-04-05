@@ -1,4 +1,5 @@
-import { createContext, useContext, useState, useEffect } from "react"; // Aggiungi useEffect
+
+import { createContext, useContext, useState, useEffect, useRef } from "react"; // Aggiungi useEffect
 
 const GlobalContext = createContext();
 const api_key = import.meta.env.VITE_MOVIE_DB_API_KEY;
@@ -15,7 +16,7 @@ function GlobalProvider({ children }) {
         fetch(`https://api.themoviedb.org/3/trending/movie/week?api_key=${api_key}&language=${language}`)
             .then(response => response.json())
             .then(data => {
-                setTopTen(data.results.slice(0, 8).map(movie => ({
+                setTopTen(data.results.slice(0, 30).map(movie => ({
                     ...movie,
                     type: 'movie', // Aggiungi il campo "type"
                 })));
@@ -23,7 +24,7 @@ function GlobalProvider({ children }) {
             .catch(error => {
                 console.error('Error fetching top ten movies:', error);
             });
-    },); // Esegui nuovamente la chiamata se cambia la lingua
+    }, [language]); // Esegui ancora la chimata se cambia la lingua
 
     const handleSearch = () => {
         // Fetch movies
@@ -49,6 +50,17 @@ function GlobalProvider({ children }) {
 
     const allResults = [...movies, ...tvShows];
 
+    const rowRef = useRef(null);
+
+    const slide = (direction) => {
+        if (rowRef.current) {
+            const cardWidth = rowRef.current.firstChild.offsetWidth + 0; // Dimensione card + margine
+            rowRef.current.scrollBy({
+                left: direction * cardWidth,
+                behavior: 'smooth',
+            });
+        }
+    };
     return (
         <GlobalContext.Provider value={{
             searchText,
@@ -58,7 +70,10 @@ function GlobalProvider({ children }) {
             language,
             setLanguage,
             topTen,
-            setTopTen
+            setTopTen,
+            rowRef,
+            slide,
+
         }}>
             {children}
         </GlobalContext.Provider>

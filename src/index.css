@@ -69,6 +69,36 @@ main {
     padding-top: 30px;
     min-height: calc(100vh - 56px);
 
+    .search-results {
+        position: relative;
+
+        .arrow_left {
+            position: absolute;
+            top: 50%;
+            left: -55px;
+            transform: translateY(-50%);
+            font-size: 20px;
+            cursor: pointer;
+
+            &:hover {
+                color: red
+            }
+        }
+
+        .arrow_right {
+            position: absolute;
+            top: 50%;
+            right: -50px;
+            transform: translateY(-50%);
+            font-size: 20px;
+            cursor: pointer;
+
+            &:hover {
+                color: red
+            }
+
+        }
+    }
 
 
     /* gestione dello slide laterale  */
@@ -85,12 +115,7 @@ main {
     padding: 20px;
 }
 
-.movies-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 20px;
-    padding: 10px;
-}
+
 
 .movie-card {
     margin-bottom: 20px;
