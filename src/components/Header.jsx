@@ -1,4 +1,4 @@
-import { useGlobal } from "../contexts/globalContext"
+import { useGlobal } from "../contexts/GlobalContext"
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
@@ -22,10 +22,10 @@ export default function Header() {
                                     <Link to="/" className="nav-link active text-white" aria-current="page" href="#" >Home</Link>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="nav-link active text-white" aria-current="page" href="#">Fim</a>
+                                    <Link to="/film" className="nav-link active text-white" aria-current="page" href="#">Fim</Link>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="nav-link active text-white" aria-current="page" href="#">Telefilm</a>
+                                    <Link to="/telefilm" className="nav-link active text-white" aria-current="page" href="#">Telefilm</Link>
                                 </li>
                             </ul>
                             <form className="d-flex" role="search" onSubmit={(e) => {

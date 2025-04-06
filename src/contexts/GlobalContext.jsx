@@ -8,18 +8,19 @@ function GlobalProvider({ children }) {
     const [movies, setMovies] = useState([]);
     const [tvShows, setTvShows] = useState([]);
     const [language, setLanguage] = useState("en");
-    const [topTen, setTopTen] = useState([]);
+    const [trendinSeries, setTrendinSeries] = useState([]);
+    const [trendingMovie, setTrendingMovie] = useState([])
     const [idVideo, setIdVideo] = useState("127532")
     const [currentVideo, setCurrentVideo] = useState("")
 
-    // Popola i dati di "Top Ten" al caricamento della pagina
+    // Popola i dati di "Top Ten serietvv" al caricamento della pagina
     useEffect(() => {
         fetch(`https://api.themoviedb.org/3/trending/tv/week?api_key=${api_key}&language=${language}`)
             .then(response => response.json())
             .then(data => {
-                setTopTen(data.results.slice(0, 30).map(movie => ({
+                setTrendinSeries(data.results.slice(0, 30).map(movie => ({
                     ...movie,
-                    type: 'movie', // Aggiungi il campo "type"
+                    type: 'tv', // Aggiungi il campo "type"
                 })));
             })
             .catch(error => {
@@ -27,7 +28,23 @@ function GlobalProvider({ children }) {
             });
     }, [language]); // Esegui ancora la chimata se cambia la lingua
 
-    // Fetch per la ricerca della key del video di Youtube
+
+    // Popola i dati di "Top Ten Films" al caricamento della pagina
+    useEffect(() => {
+        fetch(`https://api.themoviedb.org/3/trending/movie/week?api_key=${api_key}&language=${language}`)
+            .then(response => response.json())
+            .then(data => {
+                setTrendingMovie(data.results.slice(0, 30).map(movie => ({
+                    ...movie,
+                    type: 'movie', // Aggiungi il campo "type"
+                })));
+            })
+            .catch(error => {
+                console.error('Error fetching top ten movies:', error);
+            });
+    }, [language])
+
+    // Fetch video di Youtube
     useEffect(() => {
         fetch(`https://api.themoviedb.org/3/tv/${idVideo}/videos?api_key=${api_key}&language=${language}`)
             .then(response => response.json())
@@ -72,14 +89,14 @@ function GlobalProvider({ children }) {
     //SLIDE DELLA ROW
     const rowRef = useRef(null);
 
-    const slide = (direction) => {
+    const slide = (direction, rowRef) => { // Aggiungi rowRef come parametro
         if (rowRef.current) {
             const { scrollLeft, clientWidth } = rowRef.current;
             const scrollTo = direction === "left" ? scrollLeft - clientWidth : scrollLeft + clientWidth;
             rowRef.current.scrollTo({ left: scrollTo, behavior: "smooth" });
         }
     };
-    //evento per far funzionare lo slide lateralep
+
     useEffect(() => {
         const rowElement = rowRef.current;
         if (rowElement) {
@@ -99,13 +116,14 @@ function GlobalProvider({ children }) {
             handleSearch,
             language,
             setLanguage,
-            topTen,
-            setTopTen,
+            trendinSeries,
+            setTrendinSeries,
             rowRef,
             slide,
             idVideo,
             setIdVideo,
-            currentVideo
+            currentVideo,
+            trendingMovie
 
 
         }}>
