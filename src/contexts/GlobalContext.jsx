@@ -1,4 +1,3 @@
-
 import { createContext, useContext, useState, useEffect, useRef } from "react"; // Aggiungi useEffect
 
 const GlobalContext = createContext();
@@ -10,11 +9,12 @@ function GlobalProvider({ children }) {
     const [tvShows, setTvShows] = useState([]);
     const [language, setLanguage] = useState("en");
     const [topTen, setTopTen] = useState([]);
-
+    const [idVideo, setIdVideo] = useState("127532")
+    const [currentVideo, setCurrentVideo] = useState("")
 
     // Popola i dati di "Top Ten" al caricamento della pagina
     useEffect(() => {
-        fetch(`https://api.themoviedb.org/3/trending/movie/week?api_key=${api_key}&language=${language}`)
+        fetch(`https://api.themoviedb.org/3/trending/tv/week?api_key=${api_key}&language=${language}`)
             .then(response => response.json())
             .then(data => {
                 setTopTen(data.results.slice(0, 30).map(movie => ({
@@ -27,9 +27,24 @@ function GlobalProvider({ children }) {
             });
     }, [language]); // Esegui ancora la chimata se cambia la lingua
 
+    // Fetch per la ricerca della key del video di Youtube
+    useEffect(() => {
+        fetch(`https://api.themoviedb.org/3/tv/${idVideo}/videos?api_key=${api_key}&language=${language}`)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                setCurrentVideo(data.results[0].key || "NtssbUbxDDM");
+                console.log(idVideo)
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }, [idVideo, language]);
+
+
 
     const handleSearch = () => {
-        // Fetch movies
+        // Fetch film
         fetch(`https://api.themoviedb.org/3/search/movie?api_key=${api_key}&query=${searchText}&language=${language}`)
             .then(response => response.json())
             .then(data => {
@@ -52,17 +67,30 @@ function GlobalProvider({ children }) {
 
     const allResults = [...movies, ...tvShows];
 
+
+
+    //SLIDE DELLA ROW
     const rowRef = useRef(null);
 
     const slide = (direction) => {
         if (rowRef.current) {
-            const cardWidth = rowRef.current.firstChild.offsetWidth + 0; // Dimensione card + margine
-            rowRef.current.scrollBy({
-                left: direction * cardWidth,
-                behavior: 'smooth',
-            });
+            const { scrollLeft, clientWidth } = rowRef.current;
+            const scrollTo = direction === "left" ? scrollLeft - clientWidth : scrollLeft + clientWidth;
+            rowRef.current.scrollTo({ left: scrollTo, behavior: "smooth" });
         }
     };
+    //evento per far funzionare lo slide lateralep
+    useEffect(() => {
+        const rowElement = rowRef.current;
+        if (rowElement) {
+            const handleTouchStart = () => { };
+            rowElement.addEventListener("touchstart", handleTouchStart, { passive: true });
+            return () => {
+                rowElement.removeEventListener("touchstart", handleTouchStart);
+            };
+        }
+    }, []);
+
     return (
         <GlobalContext.Provider value={{
             searchText,
@@ -75,6 +103,10 @@ function GlobalProvider({ children }) {
             setTopTen,
             rowRef,
             slide,
+            idVideo,
+            setIdVideo,
+            currentVideo
+
 
         }}>
             {children}

@@ -1,8 +1,13 @@
 import { useState } from 'react';
 
-export default function Card({ movie, stars }) {
+
+export default function Card({ movie, stars, onClick }) {
+
+    //rotazione dell'img
     const [isImageVisible, setIsImageVisible] = useState(true);
 
+
+    //accorciare descrizione 
     const truncateText = (text, maxLength) => {
         if (!text) return "No description available.";
         return text.length > maxLength ? text.slice(0, maxLength) + '...' : text;
@@ -13,7 +18,9 @@ export default function Card({ movie, stars }) {
     };
 
     return (
-        <div className="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 mb-4">
+        <div
+            onClick={onClick}
+            className="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 mb-4">
             <div className={`card_film ${!isImageVisible ? 'flipped' : ''}`}
                 onClick={toggleImage}>
                 <div className="card-front">

@@ -1,9 +1,20 @@
 import { useGlobal } from "../contexts/globalContext"
 import React from 'react';
 import Card from "../components/CardFilm"
+import { useState } from "react";
+
 
 export default function Home() {
-    const { languageCode, topTen, rowRef, slide } = useGlobal()
+    const { languageCode, topTen, rowRef, slide, idVideo, setIdVideo, currentVideo } = useGlobal()
+    const url = `https://www.youtube.com/embed/${currentVideo}`
+
+    function getVideo(item) {
+        setIdVideo(item.id)
+        console.log(item.id)
+        console.log(currentVideo);
+
+
+    }
 
     return (
         <>
@@ -15,7 +26,7 @@ export default function Home() {
                                 <iframe
                                     width="100%"
                                     height="100%"
-                                    src="https://www.youtube.com/embed/Ijqzh2hQOkc"
+                                    src={url}
                                     title="YouTube Video Player"
 
                                     allow="accelerometer; autoplay; clipboard-write; gyroscope;"
@@ -43,13 +54,14 @@ export default function Home() {
                                         ))
                                     );
                                 }
-
                                 return (
                                     <Card
                                         key={`${item.type}-${item.id}`}
                                         movie={item}
                                         lang={languageCode}
                                         stars={getStars()}
+                                        onClick={() => getVideo(item)} // Modifica qui
+
                                     />
                                 );
                             })}
