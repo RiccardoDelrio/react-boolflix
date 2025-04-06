@@ -207,9 +207,13 @@ main {
 
 .big_card {
     box-shadow: -3px 5px 15px 0px rgba(255, 255, 255, 0.2);
-    background-color: #000;
+    max-height: 600px;
+}
 
-    .asd {
-        background-color: #000;
-    }
+.big-img {
+    width: 100% !important;
+    max-height: 500px;
+    /* Constrain the height */
+    object-fit: cover;
+    /* Maintain aspect ratio */
 }
