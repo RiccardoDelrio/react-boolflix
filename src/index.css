@@ -6,6 +6,7 @@ body {
     padding: 0;
     background: linear-gradient(180deg, rgba(0, 0, 0, 1) 0%, rgba(20, 20, 20, 1) 100%);
     overflow-x: hidden;
+    height: 100vh;
     /* Prevent horizontal scrolling */
 }
 
@@ -73,7 +74,6 @@ header {
 }
 
 main {
-    background: linear-gradient(180deg, rgba(0, 0, 0, 1) 0%, rgba(20, 20, 20, 1) 100%);
     padding-top: 30px;
 
     .search-results {
@@ -205,9 +205,11 @@ main {
     }
 }
 
-@media (max-width: 768px) {
-    .movies-grid {
-        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-        gap: 10px;
+.big_card {
+    box-shadow: -3px 5px 15px 0px rgba(255, 255, 255, 0.2);
+    background-color: #000;
+
+    .asd {
+        background-color: #000;
     }
 }

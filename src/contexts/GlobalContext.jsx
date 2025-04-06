@@ -12,7 +12,7 @@ function GlobalProvider({ children }) {
     const [trendingMovie, setTrendingMovie] = useState([])
     const [idVideo, setIdVideo] = useState("127532")
     const [currentVideo, setCurrentVideo] = useState("")
-
+    const [details, setDetails] = useState([{}])
     // Popola i dati di "Top Ten serietvv" al caricamento della pagina
     useEffect(() => {
         fetch(`https://api.themoviedb.org/3/trending/tv/week?api_key=${api_key}&language=${language}`)
@@ -108,6 +108,19 @@ function GlobalProvider({ children }) {
         }
     }, []);
 
+    function takefilm(item) {
+        setDetails({
+            title: item.name || item.title,
+            description: item.overview,
+            img: item.backdrop_path,
+        });
+        console.log("Film details set:", {
+            title: item.name || item.title,
+            description: item.overview,
+            img: item.backdrop_path,
+        });
+    }
+
     return (
         <GlobalContext.Provider value={{
             searchText,
@@ -123,7 +136,10 @@ function GlobalProvider({ children }) {
             idVideo,
             setIdVideo,
             currentVideo,
-            trendingMovie
+            trendingMovie,
+            details,
+            setDetails,
+            takefilm
 
 
         }}>

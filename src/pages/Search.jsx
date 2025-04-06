@@ -1,8 +1,8 @@
-import { useGlobal } from "../contexts/globalContext"
+import { useGlobal } from "../contexts/GlobalContext"
 import Card from "../components/CardFilm"
 
 export default function Search() {
-    const { searchResults, languageCode, rowRef, slide } = useGlobal()
+    const { searchResults, languageCode, rowRef, slide, takefilm } = useGlobal()
 
     return (
         <>
@@ -30,6 +30,7 @@ export default function Search() {
                                         movie={item}
                                         lang={languageCode}
                                         stars={getStars()}
+                                        takefilm={() => takefilm(item)}
                                     />
                                 );
                             })}
