@@ -28,7 +28,7 @@ export default function Card({ movie, stars, onClick, takefilm }) {
                     {movie.poster_path == null ?
                         <>
                             <img className='placeholder-img' src='./img/N.png' />
-                            <h5 className="title">Titolo: {movie.title || movie.name}</h5>
+                            <h5 className="title">{movie.title || movie.name}</h5>
                         </>
                         :
                         <img

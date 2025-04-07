@@ -6,7 +6,7 @@ body {
     margin: 0;
     padding: 0;
     background: linear-gradient(180deg, rgba(0, 0, 0, 1) 0%, rgba(20, 20, 20, 1) 100%);
-    overflow-x: hidden;
+
     height: 100vh;
     font-family: "Cormorant", serif;
     font-family: "Sorts Mill Goudy", serif;
@@ -213,6 +213,7 @@ main {
 .big_card {
     box-shadow: -3px 5px 15px 0px rgba(255, 255, 255, 0.2);
 
+
     .big-img {
         width: 100% !important;
         max-height: 500px;
@@ -280,4 +281,36 @@ main {
     border-radius: 50%;
     object-fit: cover;
     margin-right: 10px;
+}
+
+.cast_img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: contain;
+    margin-right: 10px;
+}
+
+.cast_img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 0 auto;
+    /* Centra l'immagine */
+    display: block;
+}
+
+.cast_name {
+    text-align: center;
+    /* Centra il testo */
+    font-size: 0.9rem;
+    word-wrap: break-word;
+    /* Gestisce il testo lungo */
+    overflow: hidden;
+    /* Nasconde il testo in eccesso */
+    text-overflow: ellipsis;
+    /* Aggiunge i puntini di sospensione per il testo lungo */
+    white-space: nowrap;
+    /* Evita che il testo vada su più righe */
 }

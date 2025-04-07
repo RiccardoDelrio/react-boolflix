@@ -10,13 +10,14 @@ function GlobalProvider({ children }) {
     const [language, setLanguage] = useState("en");
     const [trendinSeries, setTrendinSeries] = useState([]);
     const [trendingMovie, setTrendingMovie] = useState([]);
-    const [idVideo, setIdVideo] = useState("127532");
+    const [idVideo, setIdVideo] = useState("127532" || "696506");
     const [currentVideo, setCurrentVideo] = useState("");
     const [details, setDetails] = useState([{}]);
-    const [genres, setGenres] = useState([]); // Inizializza come array vuoto
+    const [genres, setGenres] = useState([]);
     const [allFilms, setAllFilms] = useState([]);
     const [page, setPage] = useState(1);
-    const [genreId, setGenreId] = useState(""); // Stato per il genere selezionato
+    const [genreId, setGenreId] = useState("");
+    const [cast, setCast] = useState([]);
 
     // Popola i dati di "Top Ten serietvv" al caricamento della pagina
     useEffect(() => {
@@ -95,6 +96,34 @@ function GlobalProvider({ children }) {
 
         fetchDiscoverMovies();
     }, [language, page, genreId]); // Dipende da `language`, `page` e `genreId`
+
+    //fetch per i nomi degli attori presenti in quel film
+    useEffect(() => {
+        fetch(`https://api.themoviedb.org/3/movie/${idVideo}/credits?api_key=${api_key}`)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                setCast(data.cast.slice(0, 5))
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }, [idVideo]);
+    useEffect(() => {
+        fetch(`https://api.themoviedb.org/3/tv/${idVideo}/credits?api_key=${api_key}`)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                setCast(data.cast.slice(0, 5))
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }, [idVideo]);
+
+
+
+
 
     const handleSearch = () => {
         // Fetch film
@@ -177,7 +206,8 @@ function GlobalProvider({ children }) {
             genres,
             allFilms,
             setPage,
-            setGenreId
+            setGenreId,
+            cast
         }}>
             {children}
         </GlobalContext.Provider>
