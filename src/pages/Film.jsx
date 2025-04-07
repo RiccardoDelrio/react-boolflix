@@ -21,14 +21,14 @@ export default function Home() {
                 <div className="m-5 px-4">
                     <h2 className=" mt-5">Top Movies  of the Week</h2>
                     <div className="search-results">
-                        <button className='arrow_left btn' onClick={() => slide(-1, moviesRowRef)}>
+                        <button className='arrow_left btn' onClick={() => slide("left", moviesRowRef)}>
                             <i className="fa fa-arrow-left" aria-hidden="true"></i>
                         </button>
-                        <button className='arrow_right btn' onClick={() => slide(1, moviesRowRef)}>
+                        <button className='arrow_right btn' onClick={() => slide("right", moviesRowRef)}>
                             <i className="fa fa-arrow-right" aria-hidden="true"></i>
                         </button>
 
-                        <div className="row" ref={moviesRowRef}>
+                        <div className="row slide_row" ref={moviesRowRef}>
                             {trendingMovie.map((item) => {
                                 const stars = ((item.vote_average || 0) / 2);
                                 function getStars() {

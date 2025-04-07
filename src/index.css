@@ -1,4 +1,5 @@
 @import 'bootstrap';
+@import url('https://fonts.googleapis.com/css2?family=Sorts+Mill+Goudy:ital@0;1&display=swap');
 
 html,
 body {
@@ -7,6 +8,10 @@ body {
     background: linear-gradient(180deg, rgba(0, 0, 0, 1) 0%, rgba(20, 20, 20, 1) 100%);
     overflow-x: hidden;
     height: 100vh;
+    font-family: "Cormorant", serif;
+    font-family: "Sorts Mill Goudy", serif;
+
+
     /* Prevent horizontal scrolling */
 }
 
@@ -109,7 +114,7 @@ main {
 
 
     /* gestione dello slide laterale  */
-    .row {
+    .slide_row {
         scroll-behavior: smooth;
         flex-wrap: nowrap;
         overflow: hidden;
@@ -207,13 +212,63 @@ main {
 
 .big_card {
     box-shadow: -3px 5px 15px 0px rgba(255, 255, 255, 0.2);
-    max-height: 600px;
+
+    .big-img {
+        width: 100% !important;
+        max-height: 500px;
+        border-radius: 5px;
+        object-fit: cover;
+
+
+
+    }
+
+
+    &:hover {
+        box-shadow: -3px 5px 15px 0px rgba(255, 255, 255, 0.95);
+        transition: box-shadow 0.3s ease-in-out;
+        background-color: rgba(0, 0, 0, 0.8);
+    }
 }
 
-.big-img {
-    width: 100% !important;
-    max-height: 500px;
-    /* Constrain the height */
-    object-fit: cover;
-    /* Maintain aspect ratio */
+.titolo_card {
+    margin-bottom: 1rem;
+    text-align: center;
+    color: white;
+    padding: 5px;
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 5px;
+    position: relative;
+    top: 80%;
+}
+
+.user_lang {
+    width: 40px;
+    height: 40px;
+}
+
+.langChoice .dropdown-menu {
+    position: absolute;
+    z-index: 1050;
+    width: auto;
+}
+
+.langChoice .dropdown-menu-end {
+    right: 0;
+}
+
+.btn_lang {
+    width: 20px;
+    height: 30px;
+}
+
+.btn_lang.active {
+    border: 2px solid red;
+    /* Evidenzia la lingua selezionata */
+    border-radius: 5px;
+}
+
+.flag {
+    width: 20px;
+    height: 20px;
 }

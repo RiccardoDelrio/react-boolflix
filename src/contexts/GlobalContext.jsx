@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect, useRef } from "react"; // Aggiungi useEffect
+import { createContext, useContext, useState, useEffect, useRef, use } from "react"; // Aggiungi useEffect
 
 const GlobalContext = createContext();
 const api_key = import.meta.env.VITE_MOVIE_DB_API_KEY;
@@ -13,12 +13,14 @@ function GlobalProvider({ children }) {
     const [idVideo, setIdVideo] = useState("127532")
     const [currentVideo, setCurrentVideo] = useState("")
     const [details, setDetails] = useState([{}])
+    const [genres, setGenres] = useState([])
+    const [allFilms, setAllFilms] = useState([])
     // Popola i dati di "Top Ten serietvv" al caricamento della pagina
     useEffect(() => {
         fetch(`https://api.themoviedb.org/3/trending/tv/week?api_key=${api_key}&language=${language}`)
             .then(response => response.json())
             .then(data => {
-                setTrendinSeries(data.results.slice(0, 30).map(movie => ({
+                setTrendinSeries(data.results.map(movie => ({
                     ...movie,
                     type: 'tv', // Aggiungi il campo "type"
                 })));
@@ -34,7 +36,7 @@ function GlobalProvider({ children }) {
         fetch(`https://api.themoviedb.org/3/trending/movie/week?api_key=${api_key}&language=${language}`)
             .then(response => response.json())
             .then(data => {
-                setTrendingMovie(data.results.slice(0, 30).map(movie => ({
+                setTrendingMovie(data.results.map(movie => ({
                     ...movie,
                     type: 'movie', // Aggiungi il campo "type"
                 })));
@@ -57,7 +59,30 @@ function GlobalProvider({ children }) {
                 console.error('Error:', error);
             });
     }, [idVideo, language]);
-
+    //fetch per  ottenere i generi disponibili
+    useEffect(() => {
+        fetch(`https://api.themoviedb.org/3/genre/movie/list?api_key=${api_key}&language=${language}`)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                setGenres(data.genres);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }, [language])
+    //fetch per  il discoverty
+    useEffect(() => {
+        fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${api_key}&language=${language}`)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                setAllFilms(data);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }, [language])
 
 
     const handleSearch = () => {
@@ -89,8 +114,8 @@ function GlobalProvider({ children }) {
     //SLIDE DELLA ROW
     const rowRef = useRef(null);
 
-    const slide = (direction, rowRef) => { // Aggiungi rowRef come parametro
-        if (rowRef.current) {
+    const slide = (direction, rowRef) => {
+        if (rowRef && rowRef.current) {
             const { scrollLeft, clientWidth } = rowRef.current;
             const scrollTo = direction === "left" ? scrollLeft - clientWidth : scrollLeft + clientWidth;
             rowRef.current.scrollTo({ left: scrollTo, behavior: "smooth" });
@@ -139,7 +164,9 @@ function GlobalProvider({ children }) {
             trendingMovie,
             details,
             setDetails,
-            takefilm
+            takefilm,
+            genres,
+            allFilms
 
 
         }}>

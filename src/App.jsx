@@ -5,7 +5,8 @@ import DefaultLayout from "./layout/defaultLayout";
 import Search from "./pages/Search"
 import Film from "./pages/Film"
 import Telefilm from "./pages/Telefilm"
-import Details from "./pages/Details"; // Importa la nuova pagina
+import Details from "./pages/Details";
+import Discover from "./pages/Discover"
 
 function App() {
 
@@ -19,6 +20,7 @@ function App() {
             <Route path="/film" element={<Film />} />
             <Route path="/telefilm" element={<Telefilm />} />
             <Route path="/details" element={<Details />} />
+            <Route path="/Discover" element={<Discover />} />
           </Route>
         </Routes>
       </Router>
