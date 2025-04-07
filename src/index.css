@@ -304,14 +304,14 @@ main {
 
 .cast_name {
     text-align: center;
-    /* Centra il testo */
+
     font-size: 0.9rem;
     word-wrap: break-word;
-    /* Gestisce il testo lungo */
+
     overflow: hidden;
-    /* Nasconde il testo in eccesso */
+
     text-overflow: ellipsis;
-    /* Aggiunge i puntini di sospensione per il testo lungo */
+
     white-space: nowrap;
-    /* Evita che il testo vada su più righe */
+
 }
