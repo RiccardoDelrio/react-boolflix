@@ -3,7 +3,7 @@ import React, { useRef } from "react";
 import Card from "../components/CardFilm";
 
 export default function Home() {
-    const { languageCode, trendinSeries, slide, setIdVideo, currentVideo, trendingMovie, takefilm } = useGlobal();
+    const { languageCode, trendinSeries, slide, setIdVideo, currentVideo, trendingMovie, takefilm, idVideo } = useGlobal();
     const url = `https://www.youtube.com/embed/${currentVideo}`;
 
     const seriesRowRef = useRef(null);

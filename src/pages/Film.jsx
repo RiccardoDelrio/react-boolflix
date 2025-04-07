@@ -19,7 +19,7 @@ export default function Home() {
         <>
             <main>
                 <div className="m-5 px-4">
-                    <h2 className=" mt-5">Top Movies  of the Week</h2>
+                    <h2 className=" mt-5 text-white">Top Movies  of the Week</h2>
                     <div className="search-results">
                         <button className='arrow_left btn' onClick={() => slide("left", moviesRowRef)}>
                             <i className="fa fa-arrow-left" aria-hidden="true"></i>

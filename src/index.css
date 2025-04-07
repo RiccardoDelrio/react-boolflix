@@ -134,7 +134,7 @@ main {
 }
 
 .card_film {
-    height: 350px;
+
     border: 1px solid rgba(255, 255, 255, 0.267);
     position: relative;
     perspective: 1000px;
@@ -144,6 +144,7 @@ main {
     background-color: #000;
     color: #fff;
     box-shadow: -3px 5px 15px 0px rgba(255, 255, 255, 0.2);
+    aspect-ratio: 11/16;
 
     &.flipped {
         transform: rotateY(180deg);

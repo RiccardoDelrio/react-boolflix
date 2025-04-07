@@ -11,14 +11,29 @@ export default function Discover() {
         setPage(1); // Resetta la pagina a 1 per il nuovo filtro
     };
 
-    const handleNextPage = () => {
-        setPage((prevPage) => prevPage + 1); // Incrementa la pagina
-    };
+
+    useEffect(() => {
+        const handleScroll = () => {
+            const { scrollTop, clientHeight, scrollHeight } =
+                document.documentElement;
+            if (scrollTop + clientHeight >= scrollHeight - 300) {
+                setPage((prevPage) => prevPage + 1);
+            }
+        };
+
+        window.addEventListener("scroll", handleScroll);
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+        };
+    }, []);
+
+
 
     return (
         <>
             <main>
                 <div className="m-5 p-4">
+                    <h2 className="mt-5 text-white">Discover Top Movies and TV Shows</h2>
                     <div className="mb-3">
                         <select className="form-select-sm" onChange={handleGenreChange}>
                             <option value="" selected>
@@ -51,11 +66,7 @@ export default function Discover() {
                                 );
                             })}
                         </div>
-                        <div className="button_container d-flex justify-content-center mt-4">
-                            <button className="btn btn-dark" onClick={handleNextPage}>
-                                Load more <i className="fa fa-arrow-right" aria-hidden="true"></i>
-                            </button>
-                        </div>
+
                     </div>
                 </div>
             </main>

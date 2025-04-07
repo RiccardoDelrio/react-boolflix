@@ -11,7 +11,7 @@ export default function Header() {
             <header className="px-3">
                 <nav className="navbar navbar-dark navbar-expand-lg netflix-header">
                     <div className="container-fluid align-items-center">
-                        <a className="navbar-brand logo_nav" href="#"><img className="logo_nav" src="./img/netflix.png" alt="" /></a>
+                        <Link to="/" className="navbar-brand logo_nav" ><img className="logo_nav" src="./img/netflix.png" alt="" /></Link>
                         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                             <span className="navbar-toggler-icon"></span>
                         </button>
@@ -43,7 +43,7 @@ export default function Header() {
                                     onChange={(e) => setSearchText(e.target.value)} />
                                 <button className="search-click" type="submit"><i className="fa fa-search" aria-hidden="true"></i></button>
                             </form>
-                            <div className="langChoice dropdown">
+                            <div className="langChoice dropdown d-flex justify-content-end">
                                 <button
                                     className="btn user_lang p-0 dropdown-toggle"
                                     type="button"
