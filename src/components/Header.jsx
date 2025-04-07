@@ -11,23 +11,23 @@ export default function Header() {
             <header className="px-3">
                 <nav className="navbar navbar-dark navbar-expand-lg netflix-header">
                     <div className="container-fluid align-items-center">
-                        <a className="navbar-brand  logo_nav" href="#"><img className="logo_nav" src="./img/netflix.png" alt="" /></a>
+                        <a className="navbar-brand logo_nav" href="#"><img className="logo_nav" src="./img/netflix.png" alt="" /></a>
                         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                             <span className="navbar-toggler-icon"></span>
                         </button>
-                        <div className="collapse navbar-collapse " id="navbarSupportedContent">
+                        <div className="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                                 <li className="nav-item">
-                                    <Link to="/" className="nav-link active text-white" aria-current="page" href="#" >Home</Link>
+                                    <Link to="/" className="nav-link active text-white" aria-current="page">Home</Link>
                                 </li>
                                 <li className="nav-item">
-                                    <Link to="/film" className="nav-link active text-white" aria-current="page" href="#">Fim</Link>
+                                    <Link to="/film" className="nav-link active text-white" aria-current="page">Film</Link>
                                 </li>
                                 <li className="nav-item">
-                                    <Link to="/telefilm" className="nav-link active text-white" aria-current="page" href="#">Telefilm</Link>
+                                    <Link to="/telefilm" className="nav-link active text-white" aria-current="page">Telefilm</Link>
                                 </li>
                                 <li className="nav-item">
-                                    <Link to="/discover" className="nav-link active text-white" aria-current="page" href="#">Discover</Link>
+                                    <Link to="/discover" className="nav-link active text-white" aria-current="page">Discover</Link>
                                 </li>
                             </ul>
                             <form className="d-flex" role="search" onSubmit={(e) => {
@@ -36,12 +36,12 @@ export default function Header() {
                                 navigate("/search");
                             }}>
                                 <div className="search_bar"></div>
-                                <input className="form-control  search-input"
+                                <input className="form-control search-input"
                                     type="search" placeholder="Search"
                                     aria-label="Search"
                                     value={searchText}
                                     onChange={(e) => setSearchText(e.target.value)} />
-                                <button className=" search-click" type="submit"><i className="fa fa-search" aria-hidden="true"></i></button>
+                                <button className="search-click" type="submit"><i className="fa fa-search" aria-hidden="true"></i></button>
                             </form>
                             <div className="langChoice dropdown">
                                 <button
@@ -51,30 +51,30 @@ export default function Header() {
                                     data-bs-toggle="dropdown"
                                     aria-expanded="false"
                                 >
-                                    <img className="w-100" src="/img/N.png" alt="" />
+                                    <img className="w-100" src="/img/N.png" alt="User" />
                                 </button>
                                 <ul className="dropdown-menu dropdown-menu-end bg-dark" aria-labelledby="dropdownMenuButton">
-                                    <li className="text-white px-3">User</li>
+                                    <li className="text-white px-3">Active User</li>
                                     <li>
                                         <div className="lang_choice d-flex justify-content-around px-3">
                                             <button
                                                 value="en"
                                                 onClick={() => setLanguage("en")}
-                                                className={`btn_lang ${language === "en" ? "active" : ""}`}
+                                                className={` btn btn_lang ${language === "en" ? "active" : ""}`}
                                             >
                                                 <img className="flag" src="/img/eng.png" alt="English" />
                                             </button>
                                             <button
                                                 value="it"
                                                 onClick={() => setLanguage("it")}
-                                                className={`btn_lang ${language === "it" ? "active" : ""}`}
+                                                className={`btn btn_lang ${language === "it" ? "active" : ""}`}
                                             >
                                                 <img className="flag" src="/img/ita.png" alt="Italian" />
                                             </button>
                                             <button
                                                 value="fr"
                                                 onClick={() => setLanguage("fr")}
-                                                className={`btn_lang ${language === "fr" ? "active" : ""}`}
+                                                className={` btn btn_lang ${language === "fr" ? "active" : ""}`}
                                             >
                                                 <img className="flag" src="/img/fr.png" alt="French" />
                                             </button>

@@ -13,9 +13,10 @@ function GlobalProvider({ children }) {
     const [idVideo, setIdVideo] = useState("127532");
     const [currentVideo, setCurrentVideo] = useState("");
     const [details, setDetails] = useState([{}]);
-    const [genres, setGenres] = useState([]);
+    const [genres, setGenres] = useState([]); // Inizializza come array vuoto
     const [allFilms, setAllFilms] = useState([]);
     const [page, setPage] = useState(1);
+    const [genreId, setGenreId] = useState(""); // Stato per il genere selezionato
 
     // Popola i dati di "Top Ten serietvv" al caricamento della pagina
     useEffect(() => {
@@ -67,29 +68,33 @@ function GlobalProvider({ children }) {
             .then(response => response.json())
             .then(data => {
                 console.log(data);
-                setGenres(data.genres);
+                setGenres(data.genres || []); // Assicurati che genres sia un array
             })
             .catch(error => {
                 console.error('Error:', error);
             });
     }, [language]);
 
-    // Fetch per il discovery con gestione della pagina
+    // Fetch per il discovery con gestione della pagina e del genere
     useEffect(() => {
         const fetchDiscoverMovies = async () => {
             try {
                 const response = await fetch(
-                    `https://api.themoviedb.org/3/discover/movie?api_key=${api_key}&language=${language}&page=${page}`
+                    `https://api.themoviedb.org/3/discover/movie?api_key=${api_key}&language=${language}&page=${page}&with_genres=${genreId}`
                 );
                 const data = await response.json();
-                setAllFilms((prevFilms) => [...prevFilms, ...data.results]); // Concatena i nuovi risultati
+                if (page === 1) {
+                    setAllFilms(data.results); // Sovrascrivi i risultati se è la prima pagina
+                } else {
+                    setAllFilms((prevFilms) => [...prevFilms, ...data.results]); // Concatena i nuovi risultati
+                }
             } catch (error) {
                 console.error("Error fetching discover movies:", error);
             }
         };
 
         fetchDiscoverMovies();
-    }, [language, page]); // Dipende da `language` e `page`
+    }, [language, page, genreId]); // Dipende da `language`, `page` e `genreId`
 
     const handleSearch = () => {
         // Fetch film
@@ -171,7 +176,8 @@ function GlobalProvider({ children }) {
             takefilm,
             genres,
             allFilms,
-            setPage
+            setPage,
+            setGenreId
         }}>
             {children}
         </GlobalContext.Provider>

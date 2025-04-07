@@ -1,15 +1,18 @@
 import { useGlobal } from "../contexts/GlobalContext";
 import Card from "../components/CardFilm";
+import { useEffect } from "react";
 
-export default function Search() {
-    const { searchResults, languageCode, takefilm, genres, allFilms, setPage } = useGlobal();
+export default function Discover() {
+    const { languageCode, takefilm, genres, allFilms, setPage, setGenreId } = useGlobal();
+
+    const handleGenreChange = (event) => {
+        const selectedGenreId = event.target.value;
+        setGenreId(selectedGenreId); // Aggiorna il genere selezionato
+        setPage(1); // Resetta la pagina a 1 per il nuovo filtro
+    };
 
     const handleNextPage = () => {
         setPage((prevPage) => prevPage + 1); // Incrementa la pagina
-    };
-
-    const handlePreviousPage = () => {
-        setPage((prevPage) => (prevPage > 1 ? prevPage - 1 : 1)); // Decrementa la pagina, ma non sotto unooo
     };
 
     return (
@@ -17,9 +20,11 @@ export default function Search() {
             <main>
                 <div className="m-5 p-4">
                     <div className="mb-3">
-                        <select className="form-select-sm" name="" id="">
-                            <option selected>Select one</option>
-                            {genres.map((genre) => (
+                        <select className="form-select-sm" onChange={handleGenreChange}>
+                            <option value="" selected>
+                                Select one
+                            </option>
+                            {genres && genres.map((genre) => ( // Controlla che generi sia definito
                                 <option key={genre.id} value={genre.id}>
                                     {genre.name}
                                 </option>
@@ -29,7 +34,7 @@ export default function Search() {
 
                     <div className="search-results">
                         <div className="row">
-                            {allFilms.map((item) => {
+                            {allFilms && allFilms.map((item) => { // Controlla che allFilms sia definito
                                 const stars = Math.floor((item.vote_average || 0) / 2);
                                 function getStars() {
                                     return Array.from({ length: stars }, (_, i) => <span key={i}>⭐</span>);
@@ -47,11 +52,8 @@ export default function Search() {
                             })}
                         </div>
                         <div className="button_container d-flex justify-content-center mt-4">
-                            <button className="btn btn-dark me-2" onClick={handlePreviousPage}>
-                                <i className="fa fa-arrow-left" aria-hidden="true"></i> Previous
-                            </button>
                             <button className="btn btn-dark" onClick={handleNextPage}>
-                                Next <i className="fa fa-arrow-right" aria-hidden="true"></i>
+                                Load more <i className="fa fa-arrow-right" aria-hidden="true"></i>
                             </button>
                         </div>
                     </div>

@@ -263,9 +263,10 @@ main {
 }
 
 .btn_lang.active {
-    border: 2px solid red;
+    border-bottom: 2px solid red;
     /* Evidenzia la lingua selezionata */
     border-radius: 5px;
+    display: flex;
 }
 
 .flag {
