@@ -54,8 +54,14 @@ export default function Header() {
                                     <img className="w-100" src="/img/N.png" alt="User" />
                                 </button>
                                 <ul className="dropdown-menu dropdown-menu-end bg-dark" aria-labelledby="dropdownMenuButton">
-                                    <li className="text-white px-3">Active User</li>
+                                    <li className="text-white px-3"><img className="img-profile" src="/img/profile.jpg" alt="" />Rich</li>
                                     <li>
+                                        <Link to="/profile" className="nav-link text-white px-3">Profile</Link>
+                                    </li>
+
+                                    <li className="text-white px-3"></li>
+                                    <li>
+
                                         <div className="lang_choice d-flex justify-content-around px-3">
                                             <button
                                                 value="en"

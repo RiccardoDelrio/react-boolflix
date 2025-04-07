@@ -263,13 +263,21 @@ main {
 }
 
 .btn_lang.active {
-    border-bottom: 2px solid red;
-    /* Evidenzia la lingua selezionata */
-    border-radius: 5px;
+    border-bottom: 2px solid rgb(90, 90, 90);
     display: flex;
+
 }
 
 .flag {
     width: 20px;
     height: 20px;
+    margin-left: -10px
+}
+
+.img-profile {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
 }
