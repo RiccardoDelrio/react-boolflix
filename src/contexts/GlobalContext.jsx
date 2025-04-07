@@ -9,12 +9,14 @@ function GlobalProvider({ children }) {
     const [tvShows, setTvShows] = useState([]);
     const [language, setLanguage] = useState("en");
     const [trendinSeries, setTrendinSeries] = useState([]);
-    const [trendingMovie, setTrendingMovie] = useState([])
-    const [idVideo, setIdVideo] = useState("127532")
-    const [currentVideo, setCurrentVideo] = useState("")
-    const [details, setDetails] = useState([{}])
-    const [genres, setGenres] = useState([])
-    const [allFilms, setAllFilms] = useState([])
+    const [trendingMovie, setTrendingMovie] = useState([]);
+    const [idVideo, setIdVideo] = useState("127532");
+    const [currentVideo, setCurrentVideo] = useState("");
+    const [details, setDetails] = useState([{}]);
+    const [genres, setGenres] = useState([]);
+    const [allFilms, setAllFilms] = useState([]);
+    const [page, setPage] = useState(1);
+
     // Popola i dati di "Top Ten serietvv" al caricamento della pagina
     useEffect(() => {
         fetch(`https://api.themoviedb.org/3/trending/tv/week?api_key=${api_key}&language=${language}`)
@@ -30,7 +32,6 @@ function GlobalProvider({ children }) {
             });
     }, [language]); // Esegui ancora la chimata se cambia la lingua
 
-
     // Popola i dati di "Top Ten Films" al caricamento della pagina
     useEffect(() => {
         fetch(`https://api.themoviedb.org/3/trending/movie/week?api_key=${api_key}&language=${language}`)
@@ -44,7 +45,7 @@ function GlobalProvider({ children }) {
             .catch(error => {
                 console.error('Error fetching top ten movies:', error);
             });
-    }, [language])
+    }, [language]);
 
     // Fetch video di Youtube
     useEffect(() => {
@@ -53,13 +54,14 @@ function GlobalProvider({ children }) {
             .then(data => {
                 console.log(data);
                 setCurrentVideo(data.results[0].key || "NtssbUbxDDM");
-                console.log(idVideo)
+                console.log(idVideo);
             })
             .catch(error => {
                 console.error('Error:', error);
             });
     }, [idVideo, language]);
-    //fetch per  ottenere i generi disponibili
+
+    //fetch per ottenere i generi disponibili
     useEffect(() => {
         fetch(`https://api.themoviedb.org/3/genre/movie/list?api_key=${api_key}&language=${language}`)
             .then(response => response.json())
@@ -70,20 +72,24 @@ function GlobalProvider({ children }) {
             .catch(error => {
                 console.error('Error:', error);
             });
-    }, [language])
-    //fetch per  il discoverty
-    useEffect(() => {
-        fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${api_key}&language=${language}`)
-            .then(response => response.json())
-            .then(data => {
-                console.log(data);
-                setAllFilms(data);
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-    }, [language])
+    }, [language]);
 
+    // Fetch per il discovery con gestione della pagina
+    useEffect(() => {
+        const fetchDiscoverMovies = async () => {
+            try {
+                const response = await fetch(
+                    `https://api.themoviedb.org/3/discover/movie?api_key=${api_key}&language=${language}&page=${page}`
+                );
+                const data = await response.json();
+                setAllFilms((prevFilms) => [...prevFilms, ...data.results]); // Concatena i nuovi risultati
+            } catch (error) {
+                console.error("Error fetching discover movies:", error);
+            }
+        };
+
+        fetchDiscoverMovies();
+    }, [language, page]); // Dipende da `language` e `page`
 
     const handleSearch = () => {
         // Fetch film
@@ -108,8 +114,6 @@ function GlobalProvider({ children }) {
     };
 
     const allResults = [...movies, ...tvShows];
-
-
 
     //SLIDE DELLA ROW
     const rowRef = useRef(null);
@@ -166,9 +170,8 @@ function GlobalProvider({ children }) {
             setDetails,
             takefilm,
             genres,
-            allFilms
-
-
+            allFilms,
+            setPage
         }}>
             {children}
         </GlobalContext.Provider>
