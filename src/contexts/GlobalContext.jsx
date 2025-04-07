@@ -183,6 +183,11 @@ function GlobalProvider({ children }) {
             img: item.backdrop_path,
         });
     }
+    function getVideo(item) {
+        setIdVideo(item.id);
+        console.log(item.id);
+
+    }
 
     return (
         <GlobalContext.Provider value={{
@@ -207,7 +212,8 @@ function GlobalProvider({ children }) {
             allFilms,
             setPage,
             setGenreId,
-            cast
+            cast,
+            getVideo
         }}>
             {children}
         </GlobalContext.Provider>

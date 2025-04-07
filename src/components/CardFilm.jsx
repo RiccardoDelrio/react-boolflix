@@ -9,6 +9,7 @@ export default function Card({ movie, stars, onClick, takefilm }) {
         return text.length > maxLength ? text.slice(0, maxLength) + '...' : text;
     };
 
+
     const { idVideo } = useGlobal();
     return (
         <div

@@ -3,13 +3,15 @@ import Card from "../components/CardFilm";
 import { useEffect } from "react";
 
 export default function Discover() {
-    const { languageCode, takefilm, genres, allFilms, setPage, setGenreId } = useGlobal();
+    const { languageCode, takefilm, genres, allFilms, setPage, setGenreId, getVideo } = useGlobal();
 
     const handleGenreChange = (event) => {
         const selectedGenreId = event.target.value;
         setGenreId(selectedGenreId); // Aggiorna il genere selezionato
         setPage(1); // Resetta la pagina a 1 per il nuovo filtro
     };
+
+
 
 
     useEffect(() => {
@@ -62,6 +64,7 @@ export default function Discover() {
                                         lang={languageCode}
                                         stars={getStars()}
                                         takefilm={() => takefilm(item)}
+                                        onClick={() => getVideo(item)}
                                     />
                                 );
                             })}

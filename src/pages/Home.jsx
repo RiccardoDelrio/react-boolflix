@@ -3,16 +3,13 @@ import React, { useRef } from "react";
 import Card from "../components/CardFilm";
 
 export default function Home() {
-    const { languageCode, trendinSeries, slide, setIdVideo, currentVideo, trendingMovie, takefilm, idVideo } = useGlobal();
+    const { languageCode, trendinSeries, slide, setIdVideo, currentVideo, trendingMovie, takefilm, idVideo, getVideo } = useGlobal();
     const url = `https://www.youtube.com/embed/${currentVideo}`;
 
     const seriesRowRef = useRef(null);
     const moviesRowRef = useRef(null);
 
-    function getVideo(item) {
-        setIdVideo(item.id); // Update the trailer video ID
-        console.log("Selected video ID:", item.id);
-    }
+
 
     return (
         <>

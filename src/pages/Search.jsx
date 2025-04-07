@@ -2,7 +2,7 @@ import { useGlobal } from "../contexts/GlobalContext"
 import Card from "../components/CardFilm"
 
 export default function Search() {
-    const { searchResults, languageCode, rowRef, slide, takefilm, genres } = useGlobal()
+    const { searchResults, languageCode, rowRef, slide, takefilm, genres, getVideo } = useGlobal()
 
     return (
         <>

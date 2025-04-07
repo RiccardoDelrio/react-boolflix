@@ -2,6 +2,7 @@ import { useGlobal } from "../contexts/GlobalContext";
 
 export default function Details() {
     const { details, cast } = useGlobal();
+
     return (
         <>
             <div className="container">
